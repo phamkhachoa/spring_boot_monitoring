@@ -14,26 +14,6 @@ exporters:
     tls:
       insecure: true
 
-  prometheus:
-    endpoint: "0.0.0.0:8889"
-    const_labels:
-      label1: value1
-#    enable_open_metrics: true
-
-#  prometheusremotewrite:
-#    endpoint: "http://prometheus:9090/api/v1/write"
-
-#  otlp:
-#    endpoint: "http://tempo:4317"
-#    tls:
-#      insecure: true
-
-#  zipkin:
-#    endpoint: "http://zipkin-all-in-one:9411/api/v2/spans"
-#    format: proto
-#  otlp:
-#    endpoint: otelcol:4317
-
 extensions:
   health_check:
   pprof:
@@ -42,19 +22,7 @@ extensions:
 service:
   extensions: [health_check, pprof, zpages]
   pipelines:
-#    traces:
-#      receivers: [otlp]
-#      processors: [batch]
-#      exporters: [otlp]
-    metrics:
-      receivers: [otlp]
-      processors: [batch]
-      exporters: [prometheus]
     traces:
       receivers: [ otlp ]
       processors: [ batch ]
       exporters: [ jaeger, logging ]
-#    logs:
-#      receivers: [otlp]
-#      processors: [batch]
-#      exporters: [otlp]

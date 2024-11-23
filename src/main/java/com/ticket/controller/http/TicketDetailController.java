@@ -36,7 +36,7 @@ public class TicketDetailController {
         SecureRandom secureRandom = new SecureRandom();
         int productId = secureRandom.nextInt(20) + 1;
         String url = "https://fakestoreapi.com/products/" + productId;
-//        restTemplate.getForObject(url, String.class);
+        restTemplate.getForObject(url, String.class);
 //        restTemplate.getForObject(url, String.class);
         return ResultUtil.data(ticketDetailAppService.getTicketDetailById(detailId));
     }

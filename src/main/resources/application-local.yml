@@ -5,17 +5,16 @@ server:
       max: 200 #
 
 spring:
-#  sleuth:
-#    otel:
-#      config:
-#        trace-id-ratio-based: 1.0
-#      exporter:
-#        otlp:
-#          enabled: true
-#          endpoint: http://localhost:4317
-  # application
+  sleuth:
+    otel:
+      config:
+        trace-id-ratio-based: 1.0
+      exporter:
+        otlp:
+          enabled: true
+          endpoint: http://localhost:4318
   application:
-    name: com.vin.vpg
+    name: com.hpk.ticket
   #DBS
   datasource:
     hikari:
@@ -76,29 +75,6 @@ resilience4j:
         limitForPeriod: 5
         limitRefreshPeriod: 10s
         timeoutDuration: 3s
-management:
-#  otlp:
-#    metrics:
-#      export:
-#        url: http://localhost:4318/v1/metrics
-#        step: 10s
-#    tracing:
-#      endpoint: http://localhost:4318/v1/traces
-#  tracing:
-#    sampling:
-#      probability: 1.0
-  health:
-    circuitbreakers:
-      enabled: true
-  endpoints:
-    web:
-      exposure:
-        include: health,prometheus
-  endpoint:
-    health:
-      show-details: always
-    prometheus:
-      enabled: true
 
 logging:
   pattern:

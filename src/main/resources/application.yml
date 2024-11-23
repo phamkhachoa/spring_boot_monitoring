@@ -15,21 +15,24 @@ server:
 spring:
   sleuth:
     otel:
+      log:
+        slf4j:
+          enabled: true
       config:
         trace-id-ratio-based: 1.0
       exporter:
         otlp:
           enabled: true
-          endpoint: http://collector:4317
+          endpoint: http://localhost:4318
   # application
   application:
-    name: ticket
+    name: com.hpk.ticket
   #DBS
   datasource:
     hikari:
       maximum-pool-size: 5  # Số lượng tối đa kết nối
       minimum-idle: 2       # Số lượng kết nối tối thiểu trong pool
-    url: jdbc:mysql://mysql:3306/vetautet
+    url: jdbc:mysql://localhost:3306/vetautet
     username: root
     password: root1234
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -49,7 +52,7 @@ spring:
   # Redis server connection settings
   data:
     redis:
-      host: redis # Host of the Redis server
+      host: localhost # Host of the Redis server
       port: 6379 # Port of the Redis server for connection
       password: ""  # Password for connecting to the Redis server (default is empty)
       lettuce:
@@ -84,29 +87,7 @@ resilience4j:
         limitForPeriod: 5
         limitRefreshPeriod: 10s
         timeoutDuration: 3s
-management:
-#  otlp:
-#    metrics:
-#      export:
-#        url: http://localhost:4318/v1/metrics
-#        step: 10s
-#    tracing:
-#      endpoint: http://localhost:4318/v1/traces
-#  tracing:
-#    sampling:
-#      probability: 1.0
-  health:
-    circuitbreakers:
-      enabled: true
-  endpoints:
-    web:
-      exposure:
-        include: health, prometheus
-  endpoint:
-    health:
-      show-details: always
-    prometheus:
-      enabled: true
+
 
 logging:
   pattern:
@@ -116,3 +97,11 @@ logging:
     hibernate:
       SQL: DEBUG
       type.descriptor.sql.BasicBinder: TRACE
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  otlp:
+    tracing:
+      endpoint: http://localhost:4318/v1/traces
