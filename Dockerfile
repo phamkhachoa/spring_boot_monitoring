@@ -1,7 +1,7 @@
 FROM openjdk:23-jdk
 
 ADD target/ticket-0.0.1.jar /app.jar
-#ADD ./opentelemetry-javaagent.jar /opentelemetry-javaagent.jar
+#ADD ./javaagent.jar /javaagent.jar
 
 EXPOSE 8080
 ENTRYPOINT java -jar /app.jar
